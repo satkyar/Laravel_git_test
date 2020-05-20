@@ -11,28 +11,6 @@
 |
 */
 
-Route::get('/','ReceipeController@index');
+Route::resource('receipe','ReceipeController');
 
-Route::get('/php','Homecontroller@phppage');
 
-Route::get('/js','Homecontroller@jspage');
-
-// Route::get('/', function () {
-//     return view('home',[
-//     	"name" => "Home Page Template"
-//     ]);
-// });
-
-// Route::get('/php', function () {
-//     return view('php',[
-//     	'data' => array(
-//     		'lesson1' => "lesson1 data",
-//     		'lesson2' => "lesson2 data",
-//     		'lesson3' => "lesson3 data"
-//     	)
-//     ]);
-// });
-
-// Route::get('/js', function () {
-//     return view('js');
-// });
