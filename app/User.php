@@ -36,4 +36,9 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function isSuperUser(){
+        $bool = $this->id == 3;
+        return $bool;
+    }
 }

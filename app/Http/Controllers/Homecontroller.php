@@ -4,31 +4,25 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class Homecontroller extends Controller
+class HomeController extends Controller
 {
-    public function index(){
-    	return view("home",[    		
-	    	"name" => "Home Page Template"	    
-    	]);
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
     }
 
-    public function phppage(){
-    	return view('php',[
-	    	'data' => array(
-	    		'lesson1' => "lesson1 php data",
-	    		'lesson2' => "lesson2 php data",
-	    		'lesson3' => "lesson3 php data"
-	    	)
-    	]);
-    }
-
-    public function jspage(){
-    	return view('js',[
-	    	'data' => array(
-	    		'lesson1' => "lesson1 js data",
-	    		'lesson2' => "lesson2 js data",
-	    		'lesson3' => "lesson3 js data"
-	    	)
-    	]);
+    /**
+     * Show the application dashboard.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function index()
+    {
+        return view('welcome');
     }
 }

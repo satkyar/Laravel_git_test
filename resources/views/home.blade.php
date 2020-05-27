@@ -1,13 +1,14 @@
 @extends("layout")
 
-@section("Content")	
+@section("content")	
 	<div class="container">	
 		<h2>Home page</h2>	
 		<a href="\receipe\create" title=""><button class="btn btn-success">Create</button></a>
-		@foreach($data as $value)
-			<li>Name - <a href="\receipe\{{$value->id}}">{{ $value->name }}</a></li>
-			<li>Ingredients - {{ $value->ingredients }}</li>
-			<li>Category - {{ $value->category }}</li>
+		<br/><br/>
+		<?php $i = 1; ?>
+		@foreach($data as $value)			
+			{{ $i . ". " }} <a href="\receipe\{{$value->id}}">{{ $value->name }}</a>
+			<?php $i++ ?>
 			<hr>		
 		@endforeach
 	</div>

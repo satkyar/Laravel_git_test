@@ -1,4 +1,4 @@
-<?php
+ <?php
 
 /*
 |--------------------------------------------------------------------------
@@ -12,5 +12,10 @@
 */
 
 Route::resource('receipe','ReceipeController');
+Route::resource('/','ReceipeController');
 
 
+
+Auth::routes();
+
+// Route::get('/home', 'HomeController@index')->name('home');

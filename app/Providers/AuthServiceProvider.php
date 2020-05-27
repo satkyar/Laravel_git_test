@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Illuminate\Contracts\Auth\Access\Gate as SuperGate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 
@@ -13,7 +14,7 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        // 'App\Model' => 'App\Policies\ModelPolicy',
+        'App\Receipe' => 'App\Policies\ReceipePolicy',
     ];
 
     /**
@@ -21,10 +22,14 @@ class AuthServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot()
+    public function boot(SuperGate $gate)
     {
         $this->registerPolicies();
 
-        //
+        $gate->before(function($user){
+            if ($user->isSuperUser()) {
+                return true;
+            }
+        });
     }
 }

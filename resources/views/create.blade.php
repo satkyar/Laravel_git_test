@@ -1,6 +1,6 @@
 @extends("layout")
 
-@section("Content")	
+@section("content")	
 	<div class="container">			
 		<h2>New Receipe</h2>
 		@if ($errors->any())
@@ -23,8 +23,12 @@
 		    <input type="text" class="form-control" name="ingredients" value="{{ old('ingredients' )}}" required>
 		  </div>
 		   <div class="form-group">
-		    <label>Category</label>
-		    <input type="text" class="form-control" name="category" value="{{ old('category' )}}" required>
+		   	<label>Category</label>
+		    <select class="form-control" name="category">
+		    	@foreach($category as $value)
+		    		<option value="{{$value->id}}">{{ $value->name }}</option>
+		    	@endforeach
+		    </select>
 		  </div>
 		  <button type="submit" class="btn btn-primary">Submit</button>
 		</form>

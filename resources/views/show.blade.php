@@ -1,10 +1,10 @@
 @extends("layout")
 
-@section("Content")
+@section("content")
 	<div class="container">		
 		<h2>{{ $receipe->name }}</h2>
 		<li>Ingredients - {{ $receipe->ingredients }}</li>
-		<li>Category - {{ $receipe->category }}</li>
+		<li>Category - {{ $receipe->categorys->name }}</li>
 		<hr>					
 		<a href="\receipe\{{$receipe->id}}\edit"><button type="submit" class="btn btn-success">Edit</button></a>
 	</div>
