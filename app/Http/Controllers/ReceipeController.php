@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Category;
 use App\Receipe;
 use Illuminate\Http\Request;
+use App\Mail\ReceipeStored;
+use Illuminate\Support\Facades\Mail;
 
 class ReceipeController extends Controller{
 
@@ -19,7 +21,7 @@ class ReceipeController extends Controller{
     public function index(){    
         if (auth()->user()->isSuperUser()) {
             $data = Receipe::all();
-            }    
+        }    
         else{
             $data = Receipe::where('user_id',auth()->id())->get();    
         }
@@ -44,7 +46,7 @@ class ReceipeController extends Controller{
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request){
-        Receipe::create($this->validateTo($request) + ['user_id' => auth()->id()]);
+        $receipe = Receipe::create($this->validateTo($request) + ['user_id' => auth()->id()]);        
         return redirect("receipe");
     }
 
@@ -80,6 +82,7 @@ class ReceipeController extends Controller{
      */
     public function update(Request $request, Receipe $receipe){
         $receipe->Update($this->validateTo($request));
+        session()->flash('message','Receipe has been updated successfully');
         return redirect("receipe");
     }
 
@@ -92,6 +95,8 @@ class ReceipeController extends Controller{
     public function destroy(Receipe $receipe){
         $this->authorize('view',$receipe);
         $receipe->delete();
+        session()->flash('message','Receipe has been deleted successfully');
+        Mail::to('sattkyar86@gmail.com')->send(new ReceipeStored($receipe));
         return redirect("receipe");
     }
 

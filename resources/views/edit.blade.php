@@ -3,6 +3,13 @@
 @section("content")	
 	<div class="container">			
 		<h2>Edit Receipe</h2>
+		@if(session('message'))
+		<p class="alert alert-warning alert-dismissible fade show">{{ session('message') }}
+			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+			    <span aria-hidden="true">&times;</span>
+			</button>
+		</p>		
+		@endif
 		@if ($errors->any())
 		    <div class="alert alert-danger">
 		        <ul>
