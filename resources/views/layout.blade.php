@@ -18,7 +18,8 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://blackrockdigital.github.io/startbootstrap-simple-sidebar/vendor/bootstrap/css/bootstrap.min.css">        
+    <link href="{{asset('css/sidebar.css')}}" rel="stylesheet">
 </head>
 <body>
     <div id="app">
@@ -72,10 +73,22 @@
                 </div>
             </div>
         </nav>
-
-        <main class="py-4">
-            @yield('content')
-        </main>
+        <div class="d-flex" id="wrapper">
+          <div class="bg-light border-right" id="sidebar-wrapper">
+            <div class="sidebar-heading"> Admin Panel </div>
+            <div class="list-group list-group-flush">
+              <a href="/category" class="list-group-item list-group-item-action bg-light">Category</a>
+              <a href="/receipe" class="list-group-item list-group-item-action bg-light">Receipe</a>
+            </div>
+          </div>
+          <div id="page-content-wrapper">        
+            <div class="container-fluid">
+              <main class="py-4">
+                  @yield('content')
+              </main>
+            </div>
+          </div>
+        </div>
     </div>
 </body>
 </html>

@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Category;
-use App\Receipe;
-use Illuminate\Http\Request;
+use App\Events\ReceipeCreatedEvent;
 use App\Mail\ReceipeStored;
+use App\Notifications\ReceipeShowNotification;
+use App\Receipe;
+use App\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
 class ReceipeController extends Controller{
@@ -18,15 +21,14 @@ class ReceipeController extends Controller{
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(){    
+    public function index(){            
         if (auth()->user()->isSuperUser()) {
-            $data = Receipe::all();
+            $data = Receipe::paginate(9);
         }    
         else{
             $data = Receipe::where('user_id',auth()->id())->get();    
         }
-        
-        return view('home',compact('data'));
+        return view('rec_home',compact('data'));
     }
 
     /**
@@ -35,8 +37,8 @@ class ReceipeController extends Controller{
      * @return \Illuminate\Http\Response
      */
     public function create(){
-        $category = Category::all();
-        return view('create',compact('category'));
+        $category = Category::all();        
+        return view('rec_create',compact('category'));
     }
 
     /**
@@ -46,7 +48,9 @@ class ReceipeController extends Controller{
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request){
-        $receipe = Receipe::create($this->validateTo($request) + ['user_id' => auth()->id()]);        
+        $receipe = Receipe::create($this->validateTo($request) + ['user_id' => auth()->id()]);   
+        // auth()->user()->notify(new ReceipeShowNotification());
+        // event(new ReceipeCreatedEvent($receipe));     
         return redirect("receipe");
     }
 
@@ -58,7 +62,7 @@ class ReceipeController extends Controller{
      */
     public function show(Receipe $receipe){
         $this->authorize('view',$receipe);
-        return view('show',compact('receipe'));
+        return view('rec_show',compact('receipe'));
     }
 
     /**
@@ -70,7 +74,7 @@ class ReceipeController extends Controller{
     public function edit(Receipe $receipe){    
         $this->authorize('view',$receipe);    
         $category = Category::all();
-        return view('edit',compact('receipe','category'));
+        return view('rec_edit',compact('receipe','category'));
     }
 
     /**
@@ -82,7 +86,6 @@ class ReceipeController extends Controller{
      */
     public function update(Request $request, Receipe $receipe){
         $receipe->Update($this->validateTo($request));
-        session()->flash('message','Receipe has been updated successfully');
         return redirect("receipe");
     }
 
@@ -95,8 +98,6 @@ class ReceipeController extends Controller{
     public function destroy(Receipe $receipe){
         $this->authorize('view',$receipe);
         $receipe->delete();
-        session()->flash('message','Receipe has been deleted successfully');
-        Mail::to('sattkyar86@gmail.com')->send(new ReceipeStored($receipe));
         return redirect("receipe");
     }
 

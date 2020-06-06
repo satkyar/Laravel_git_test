@@ -10,13 +10,11 @@
 			</button>
 		</p>		
 		@endif
-		<a href="\receipe\create" title=""><button class="btn btn-success">Create</button></a>
-		<br/><br/>
-		<?php $i = 1; ?>
+		<a href="\category\create" title=""><button class="btn btn-success">Create</button></a>
+		<br/><br/>		
 		@foreach($data as $value)			
-			{{ $i . ". " }} <a href="\receipe\{{$value->id}}">{{ $value->name }}</a>
-			<?php $i++ ?>
+			<a href="\category\{{$value->id}}">{{ $value->name }}</a>
 			<hr>		
-		@endforeach
+		@endforeach		
 	</div>
 @endsection

@@ -14,15 +14,15 @@
 		@endif
 		<form method="post" action="\receipe">
 			{{ csrf_field() }}
-		  <div class="form-group">
+		  <div class="form-group col-md-3">
 		    <label>Receipe Name</label>
 		    <input type="text" class="form-control" name="name" value="{{ old('name' )}}" required>	    
 		  </div>
-		  <div class="form-group">
+		  <div class="form-group col-md-3">
 		    <label>Ingredients</label>
 		    <input type="text" class="form-control" name="ingredients" value="{{ old('ingredients' )}}" required>
 		  </div>
-		   <div class="form-group">
+		   <div class="form-group col-md-3">
 		   	<label>Category</label>
 		    <select class="form-control" name="category">
 		    	@foreach($category as $value)

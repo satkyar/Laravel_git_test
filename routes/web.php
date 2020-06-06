@@ -12,8 +12,10 @@
 */
 
 Route::resource('receipe','ReceipeController');
-Route::resource('/','ReceipeController');
-
+Route::resource('category','CategoryController');
+// Route::resource('/','ReceipeController');
+Route::resource('detail','PublicController');
+// Route::get('/detail/{receipe}','PublicController@show');
 
 
 Auth::routes();
